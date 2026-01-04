@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KanBan Board</title>
+    <link rel="stylesheet" href="kanbn.css">
+</head>
+
+<body>
+    <nav>
+        <div class="left-navbar">
+            <div class="search-task">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="23" y1="23" x2="16" y2="16"></line>
+                </svg>
+                <input type="text" placeholder="search tasks">
+            </div>
+        </div>
+        <div class="middle-navbar">
+            <h1>Your KanBan Board</h1>
+        </div>
+        <div class="right-navbar">
+            <div class="toggle">
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="filter">
+                <button id="filter-button">Filter Tasks &#9662;</button>
+                <select id="filter-tasks">
+                    <option value="all" selected>All Tasks</option>
+                    <option value="in-progress">In-Progress Tasks</option>
+                    <option value="completed">Completed Tasks</option>
+                    <option value="pending">Pending Tasks</option>
+                </select>
+            </div>
+
+        </div>
+    </nav>
+</body>
+
+</html>

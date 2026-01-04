@@ -1,0 +1,37 @@
+:root{
+    --navbar-background-color:rgb(21, 21, 21);
+    --navbar-color: white;
+    --search-bar-background-color:  rgb(93, 91, 91);
+    --search-bar-color: rgb(183, 179, 179);
+}
+body{
+    margin: 0;
+    padding: 0;
+
+}
+nav{
+  background-color: var(--navbar-background-color);
+  color: var(--navbar-color);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+nav .left-navbar{
+    background-color: var(--search-bar-background-color);
+    color:var(--search-bar-color);
+   padding: 0.5%;
+   border-radius: 8px;
+}
+nav .left-navbar .search-task{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap:8px;
+}
+nav .left-navbar .search-task input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--search-bar-color);
+    font-size: 16px;
+}
