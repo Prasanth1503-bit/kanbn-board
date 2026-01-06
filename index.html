@@ -30,17 +30,79 @@
                 </label>
             </div>
             <div class="filter">
-                <button id="filter-button">Filter Tasks &#9662;</button>
-                <select id="filter-tasks">
-                    <option value="all" selected>All Tasks</option>
-                    <option value="in-progress">In-Progress Tasks</option>
-                    <option value="completed">Completed Tasks</option>
-                    <option value="pending">Pending Tasks</option>
-                </select>
+                <button id="filter-button">Filter Tasks <span class="symbol">&#9662;</span></button>
+
+                <div class="dropdown" id="filter-tasks">
+                    <button data-value="all">All Tasks</button>
+                    <button data-value="in-progress">In-Progress Tasks</button>
+                    <button data-value="completed">Completed Tasks</button>
+                    <button data-value="pending">Pending Tasks</button>
+                </div>
+
             </div>
 
         </div>
     </nav>
+
+    <body>
+        <div class="tasks-container">
+            <div class="to-do-block">
+                <h2>To Do</h2>
+                <div class="to-do-tasks">
+                     <div class="tasks task-box">
+                      <p> Buy Groceries</p> 
+                       <p> Day:Jan 6,2026</p>
+                     </div>
+                      <div class="tasks task-box">
+                      <p> Buy Groceries</p> 
+                       <p> Day:Jan 6,2026</p>
+                     </div>
+                      <div class="tasks task-box">
+                      <p> Buy Groceries</p> 
+                       <p> Day:Jan 6,2026</p>
+                     </div>
+                     <button class="add-task-button">+ Add Task</button>
+                </div>
+            </div>
+            <div class="in-progress-block">
+                <h2>In Progress</h2>
+                <div class="to-progress-tasks ">
+                     <div class="in-progress task-box">
+                        <p>work on project</p>
+                        <p> Day:Jan 6,2026</p>
+                     </div>
+                     <div class="in-progress task-box">
+                        <p>work on project</p>
+                        <p> Day:Jan 6,2026</p>
+                     </div>
+                     <div class="in-progress task-box">
+                        <p>work on project</p>
+                        <p> Day:Jan 6,2026</p>
+                     </div>
+                      <button class="add-task-button">+ Add Task</button>
+                </div>
+            </div>
+            <div class="done-block">
+                <h2>Done</h2>
+                <div class="done-tasks ">
+                        <div class="done task-box">
+                            <p>clean the house</p>
+                            <p> Day:Jan 6,2026</p>
+                        </div>
+                          <div class="done task-box">
+                            <p>clean the house</p>
+                            <p> Day:Jan 6,2026</p>
+                        </div>
+                          <div class="done task-box">
+                            <p>clean the house</p>
+                            <p> Day:Jan 6,2026</p>
+                        </div>
+                         <button class="add-task-button">+ Add Task</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="kanbn.js"></script>
 </body>
 
 </html>
