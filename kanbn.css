@@ -12,26 +12,40 @@
   --dropdown-background-color: rgb(54, 52, 52);
   --dropdown-hover-background-color: rgb(85, 83, 83);
   --dropdown-color: rgb(224, 202, 202);
+  --taskheader-background-color: rgb(64, 52, 52);
+  --tasks-background-color: rgb(73, 73, 73);
+  --tasks-text-colour: white;
 }
+
 .dark-mode {
-  --body-background-color: rgb(151, 93, 93);
+  --body-background-color: rgb(132, 142, 144);
   --navbar-background-color: rgb(202, 203, 197);
   --navbar-color: rgb(21, 21, 21);
-  --search-bar-background-color: rgb(94, 91, 91);
-  --search-bar-color: rgb(234, 231, 231);
+  --search-bar-background-color: rgb(188, 179, 179);
+  --search-bar-color: rgb(240, 240, 240);
   --navbar-heading-color: rgb(23, 20, 20);
   --slider-background-color: #555;
   --silder-circle-color: white;
-  --filter-button-background-color: rgb(41, 39, 39);
-  --filter-button-color:  rgb(249, 221, 221);
+  --filter-button-background-color: rgb(133, 119, 119);
+  --filter-button-color: rgb(249, 221, 221);
   --dropdown-background-color: rgb(34, 34, 34);
   --dropdown-hover-background-color: rgb(70, 68, 68);
   --dropdown-color: rgb(212, 194, 194);
+  --taskheader-background-color: rgb(200, 200, 200);
+  --tasks-background-color: whitesmoke;
+  --tasks-text-colour: black;
 }
+
 body {
   margin: 0;
   padding: 0;
- background-color: var();
+  background-color: var(--body-background-color);
+
+}
+
+* {
+  transition: background-color 0.5s ease,
+    color 0.5s ease;
 }
 
 nav {
@@ -77,7 +91,7 @@ nav .right-navbar {
   gap: 20px;
 }
 
-nav .right-navbar .toggle {}
+
 
 .switch {
   position: relative;
@@ -112,6 +126,7 @@ nav .right-navbar .toggle {}
   border-radius: 50%;
   transition: .4s;
 }
+
 .symbol {
   font-size: 18px;
 }
@@ -135,80 +150,95 @@ input:checked+.slider:before {
   font-size: 15px;
   min-width: 137px;
   border: none;
-   border-radius: 5px;
-   padding: 5px 5px;
+  border-radius: 5px;
+  padding: 5px 5px;
 }
+
 .dropdown {
   margin-top: 3px;
   display: none;
   position: absolute;
   background-color: var(--dropdown-background-color);
-  top:100%;
+  top: 100%;
   left: 0;
-   border-radius: 5px;
+  border-radius: 5px;
   z-index: 1;
 
 }
-.dropdown button{
-  
- background-color: transparent;
- border: none;
+
+.dropdown button {
+
+  background-color: transparent;
+  border: none;
   display: inline-block;
-  width:130px;
+  width: 130px;
   text-align: left;
   padding: 5px 5px;
   color: var(--dropdown-color);
- 
+
 }
-.dropdown button:hover{
+
+.dropdown button:hover {
   background-color: var(--dropdown-hover-background-color);
   cursor: pointer;
 }
-.tasks-container{
-display: flex;
-justify-content: space-between;
-margin: 30px 50px 30px 50px;
-text-align: center;
+
+.tasks-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 50px 30px 50px;
+  text-align: center;
+  color: var(--tasks-text-colour);
 
 }
-.to-do-block ,.in-progress-block,.done-block{
-   border:black 1px solid;
-   margin-right: 20px;
-   width:90%;
-   height:auto
+
+.to-do-block,
+.in-progress-block,
+.done-block {
+  border: black 1px solid;
+  margin-right: 20px;
+  width: 90%;
+  height: auto
 }
-.to-do-block h2{
-  background-color: rgb(200, 200, 200);
+
+.to-do-block h2 {
+  background-color: var(--taskheader-background-color);
   margin: 0;
   padding: 10px 0;
 }
-.in-progress-block h2{
-  background-color: rgb(200, 200, 200);
+
+.in-progress-block h2 {
+  background-color: var(--taskheader-background-color);
   margin: 0;
   padding: 10px 0;
 }
-.done-block h2{
-  background-color: rgb(200, 200, 200);
+
+.done-block h2 {
+  background-color: var(--taskheader-background-color);
   margin: 0;
   padding: 10px 0;
 }
-.task-box{
+
+.task-box {
   border: none;
   margin: 10px;
   padding: 10px;
-  background-color: whitesmoke;
+  background-color: var(--tasks-background-color);
   padding-left: 15px;
   text-align: left;
   font-weight: 600;
-
-  box-shadow:0.7px 0.5px rgb(58, 58, 58);
+  border-radius: 5px;
+  box-shadow: 0.7px 0.5px var(--tasks-background-color);
 }
-.add-task-button{
+
+.add-task-button {
   margin: 10px;
   padding: 10px;
-  width:90%;
-  border:none;
- background-color: rgb(200, 200, 200);
+  width: 90%;
+  border: none;
+  background-color: var(--taskheader-background-color);
+  color: var(--tasks-text-colour);
   font-weight: bold;
   cursor: pointer;
+  border-radius: 5px;
 }
