@@ -45,21 +45,21 @@
     </nav>
 
     <body>
-        <div class="tasks-container">
+        <div class="tasks-container" >
             <div class="to-do-block">
                 <h2>To Do</h2>
                 <div class="to-do-tasks">
-                    <div class="to-do">
-                       
+                    <div class="to-do tasks-bar">
+
                     </div>
                     <button class="add-task-button  do-task-add-button">+ Add Task</button>
                 </div>
             </div>
             <div class="in-progress-block">
                 <h2>In Progress</h2>
-                <div class="to-progress-tasks ">
-                    <div class="in-progress">
-                        
+                <div class="to-progress-tasks">
+                    <div class="in-progress  tasks-bar">
+
                     </div>
 
                     <button class="add-task-button in-progress-add-button">+ Add Task</button>
@@ -68,13 +68,18 @@
             <div class="done-block">
                 <h2>Done</h2>
                 <div class="done-tasks ">
-                    <div class="done">
+                    <div class="done tasks-bar">
                     </div>
 
                     <button class="add-task-button  done-add-button">+ Add Task</button>
                 </div>
             </div>
+            <div class="task-input" >
+                <textarea placeholder="Enter Task" class="input"></textarea>
+                <button class="do-button">DO</button>
+            </div>
         </div>
+
     </body>
     <script type="module" src="kanbn.js"></script>
     <script type="module" src="tasksdata.js"></script>

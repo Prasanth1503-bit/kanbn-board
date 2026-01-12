@@ -1,48 +1,16 @@
- //export { toDoTasksData, inProgressTasksData, doneTasksData };
- export const toDoTasksData = [  
-    {
-        name:"Buy groceries",
-        date:"jan 6 2026"
-    },
+
+
+export const toDoTasksData =
+    JSON.parse(localStorage.getItem('toDoTasksData')) || []
+export const inProgressTasksData = 
+    JSON.parse(localStorage.getItem('inProgressTasksData')) || []
+
+export const doneTasksData = 
+    JSON.parse(localStorage.getItem('doneTasksData')) || []
+
+export function addToLocal() {
+    localStorage.setItem('toDoTasksData', JSON.stringify(toDoTasksData))
+    localStorage.setItem('inProgressTasksData', JSON.stringify(inProgressTasksData))
+    localStorage.setItem('doneTasksData', JSON.stringify(doneTasksData))
    
-     {
-        name:"Buy groceries",
-        date:"jan 6 2026"
-    }
-]
- export const inProgressTasksData = [  
-    {
-        name:"Work on project",
-        date:"jan 6 2026"
-    },
-     {
-        name:"Work on project",
-        date:"jan 6 2026"
-    },
-     {
-        name:"Buy groceries",
-        date:"jan 6 2026"
-    },
-     {
-        name:"Buy groceries",
-        date:"jan 6 2026"
-    }
-]
- export  const doneTasksData = [  
-    {
-        name:"Buy groceries",
-        date:"jan 6 2026"
-    },
-     {
-        name:"Buy groceries",
-        date:"jan 6 2026"
-    },
-     {
-        name:"Buy groceries",
-        date:"jan 6 2026"
-    },
-     {
-        name:"Buy groceries",
-        date:"jan 6 2026"
-    }
-]
+}
