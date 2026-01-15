@@ -232,8 +232,17 @@ input:checked+.slider:before {
   text-align: left;
   font-weight: 600;
   border-radius: 5px;
-  box-shadow: 0.7px 0.5px var(--tasks-background-color);
+  box-shadow: 1px 0.5px var(--tasks-background-color);
 }
+.task-box.dragged{
+  opacity: 0.5;
+}
+.task-box.dragover{
+   transform:scale3d(1.1,1.1,1.1);
+  transition: transform 0.2s ease;
+
+}
+
 
 .add-task-button {
   margin: 10px;

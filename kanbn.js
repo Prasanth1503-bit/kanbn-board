@@ -42,62 +42,19 @@ function renderAllTasks() {
     inProgressTasksBar.innerHTML = renderTasks(inProgressTasksData);
     doneTasksBar.innerHTML = renderTasks(doneTasksData);
 }
-function swapTasks(tasktype, id1, id2) {
-    const fromId = tasktype.findIndex((task) => (task.id == id1))
-    const toId = tasktype.findIndex((tasks) => (tasks.id == id2))
-    if (fromId == -1 || toId == -1 || fromId == null || toId == null) return
-    const f = tasktype[fromId]
-    tasktype[fromId] = tasktype[toId]
-    tasktype[toId] = f
-}
-function updateArray(fromtask, totask, id1, id2, type) {
-    const fromId = fromtask.findIndex((task) => (task.id == id1))
-    const toId = totask.findIndex((task) => (task.id == id2))
-    const data = fromtask[fromId]
-    if (toId == null || toId == -1) {
-        console.log('add to end')
-        data.type = type
-        fromtask.splice(fromId, 1)
-        totask.push(data)
-        return
-    }
-    else if (fromId == -1 || fromId == null) {
-        console.log('error')
-        return
-    }
 
-    console.log(fromId)
-    console.log(toId)
-    data.type = type
-    fromtask.splice(fromId, 1)
-    totask.splice(toId, 0, data)
-
-}
-function updateArrayatEnd(fromtask, totask, id1, type) {
-    const fromId = fromtask.findIndex((task) => (task.id == id1))
-    //  const toId = totask.findIndex((task) => (task.id == id2))
-    if (fromId == -1 || fromId == null) {
-        console.log('error')
-        return
-    }
-    const data = fromtask[fromId]
-    console.log('add to end')
-    data.type = type
-    fromtask.splice(fromId, 1)
-    totask.push(data)
-
-}
 
 renderAllTasks();
 const taskInput = document.querySelector('.task-input')
 const doButton = document.querySelector('.do-button')
 const taskValue = document.querySelector('.input')
-let data = null
+let data=null
 document.querySelectorAll('.add-task-button').forEach((each) => {
     each.addEventListener('click', () => {
         taskInput.classList.toggle('show')
-
-        data = each.classList[1]
+        taskValue.value=''
+        taskValue.focus()
+        data=each.classList[1]
     })
 })
 
@@ -119,3 +76,101 @@ doButton.addEventListener('click', () => {
 
 
 })
+document.querySelectorAll('.colums').forEach((contianer)=>{
+    
+    contianer.addEventListener('dragstart',(e)=>{
+         //array swap
+         const task=e.target.closest('.task-box')
+          task.style.opacity=0.5;
+         const fromData={
+            id:task.id,
+            type:task.dataset.taskType
+         }
+         e.dataTransfer.setData('application/json',JSON.stringify(fromData))
+    })
+    contianer.addEventListener('dragover',(e)=>{
+             const task=e.target.closest('.task-box')
+            task.classList.add('dragover')
+    })
+    contianer.addEventListener('dragleave',(e)=>{
+        const task=e.target.closest('.task-box')
+        task.classList.remove('dragover')
+    })
+
+    
+    contianer.addEventListener('drop',(e)=>{
+        e.preventDefault()
+         const fromData=JSON.parse(e.dataTransfer.getData('application/json'))
+         const task=e.target.closest('.task-box')
+         if(task==null){
+            const d=contianer.children[1].children[0].dataset.dataType
+            addatend(fromData.type,d,fromData.id)
+            addToLocal()
+            renderAllTasks()
+            return
+         }
+        const toData={
+            id:task.id,
+            type:task.dataset.taskType
+        }
+      
+       if(fromData.type===toData.type){
+          swap(fromData.type,fromData.id,toData.id)
+       }
+       else{
+        addToAnother(fromData.type,toData.type,fromData.id,toData.id)
+       }
+         addToLocal()
+     renderAllTasks()
+      
+     
+       
+    })
+    contianer.addEventListener('dragleave',(e)=>{
+        
+       
+           
+    })
+    contianer.addEventListener('dragover',(e)=>{
+        e.preventDefault()
+      
+    })
+})
+function swap(type,id1,id2){
+    const data=type==='in-progress'?inProgressTasksData:type==="to-do"?toDoTasksData:doneTasksData
+    const fromid=data.findIndex(task=>task.id==id1)
+    const toid=data.findIndex(task=>task.id==id2)
+    if(fromid ==null || toid==null)return
+    const from=data[fromid]
+    data[fromid]=data[toid]
+    data[toid]=from
+  
+   
+   
+}
+function addToAnother(fromtype,totype,id1,id2){
+       const fromdata=fromtype==='in-progress'?inProgressTasksData:fromtype==="to-do"?toDoTasksData:doneTasksData
+         const todata=totype==='in-progress'?inProgressTasksData:totype==="to-do"?toDoTasksData:doneTasksData
+          const fromid=fromdata.findIndex(task=>task.id==id1)
+    const toid=todata.findIndex(task=>task.id==id2)
+     if(fromid ==null || toid==null)return
+     const to=todata[0]
+   const from=fromdata[fromid]
+   from.type=to.type
+   fromdata.splice(fromid,1)
+   todata.splice(toid,0,from)
+    
+   
+
+}
+function addatend(fromtype,totype,id1){
+      const fromdata=fromtype==='in-progress'?inProgressTasksData:fromtype==="to-do"?toDoTasksData:doneTasksData
+         const todata=totype==='in-progress'?inProgressTasksData:totype==="to-do"?toDoTasksData:doneTasksData
+           const fromid=fromdata.findIndex(task=>task.id==id1)
+             if(fromid ==null )return
+             const from=fromdata[fromid]
+             from.type=totype
+             fromdata.splice(fromid,1)
+   todata.push(from)
+  
+}
