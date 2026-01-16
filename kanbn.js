@@ -18,6 +18,7 @@ filterTasks.querySelectorAll("button").forEach((item) => {
   });
 });
 window.onclick = function (event) {
+    
   if (
     !filterButton.contains(event.target) &&
     !filterTasks.contains(event.target)
@@ -106,7 +107,7 @@ doButton.addEventListener("click", () => {
     id: idSetter++,
     type: type,
     name: `${taskValue.value}`,
-    date: new Date().toLocaleDateString(),
+    date: new Date().toDateString(),
   });
   taskInput.classList.toggle("show");
   taskValue.value = "";
@@ -163,10 +164,14 @@ document.querySelectorAll(".colums").forEach((contianer) => {
     const task = e.target.closest(".task-box");
     if (task == null) {
       const d = contianer.children[1].children[0].dataset.dataType;
+      if(d){
       addatend(fromData.type, d, fromData.id);
       addToLocal();
       renderAllTasks();
-      return;
+      return;}
+      else{
+        renderAllTasks();
+      }
     }
     const toData = {
       id: task.id,
@@ -200,6 +205,16 @@ document.querySelectorAll(".colums").forEach((contianer) => {
     }
   });
 });
+document.addEventListener('dragover',(e)=>{
+  if(e.target.closest('.nav')|| !e.target.closest('.tasks-container') ){
+  e.preventDefault()
+  renderAllTasks()}
+})
+document.addEventListener('drop',(e)=>{
+  if(e.target.closest('.nav') || !e.target.closest('.tasks-container')){
+  e.preventDefault()
+  renderAllTasks()}
+})
 function swap(type, id1, id2) {
   const data =
     type === "in-progress"
@@ -279,3 +294,58 @@ function addatend(fromtype, totype, id1) {
   fromdata.splice(fromid, 1);
   todata.push(from);
 }
+const searchvalue=document.querySelector('.searchtasks')
+
+searchvalue.addEventListener('keydown',(e)=>{
+
+    searchTask(searchvalue.value)
+    if(e.key==='Enter' || searchvalue.value===''  ){
+       searchvalue.value=''
+        remove()
+    }
+});
+function searchTask(value){
+    if(value.length <2){
+      return
+    }
+    const task=value.toLowerCase().split(" ")
+    toDoTasksData.forEach((e)=>{
+           const insideTask=e.name.toLowerCase()
+           const isMatch=task.every(word=> insideTask.includes(word))
+           if(isMatch){
+               const bar=document.getElementById(`${e.id}`)
+               bar.classList.add('searchTask')
+           }
+           
+    })
+     inProgressTasksData.forEach((e)=>{
+           const insideTask=e.name.toLowerCase()
+           const isMatch=task.every(word=> insideTask.includes(word))
+           if(isMatch){
+               const bar=document.getElementById(`${e.id}`)
+               bar.classList.add('searchTask')
+           }
+           
+    })
+     doneTasksData.forEach((e)=>{
+           const insideTask=e.name.toLowerCase()
+           const isMatch=task.every(word=> insideTask.includes(word))
+           if(isMatch){
+               const bar=document.getElementById(`${e.id}`)
+               bar.classList.add('searchTask')
+           }
+           
+    })
+
+}
+function remove(){
+    const taskAll=document.querySelectorAll('.task-box')
+    taskAll.forEach((e)=>{
+           e.classList.remove('searchTask')
+    })
+}
+window.addEventListener("click", (e) => {
+  if (!searchvalue.contains(e.target)) {
+    remove();
+  }
+});

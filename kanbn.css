@@ -16,8 +16,12 @@
   --tasks-background-color: rgb(73, 73, 73);
   --tasks-text-colour: white;
   --task-input-background-color: rgba(0, 0, 0, 0.3);
+  --task-search:rgb(58, 3, 3);
 
 }
+
+
+
 
 .dark-mode {
   --body-background-color: rgb(132, 142, 144);
@@ -37,8 +41,13 @@
   --tasks-background-color: whitesmoke;
   --tasks-text-colour: black;
   --task-input-background-color: rgba(255, 255, 255, 0.3);
+  --task-search:rgb(245, 255, 228);
   
 }
+
+
+
+
 
 body {
   margin: 0;
@@ -136,7 +145,7 @@ nav .right-navbar {
 }
 
 input:checked+.slider {
-  background-color: #090a0a;
+  background-color:var(--slider-background-color);
 }
 
 input:checked+.slider:before {
@@ -323,6 +332,12 @@ input:checked+.slider:before {
   opacity:0.6;
   transform: scale3d(0.9,0.9,0.9);
   border-radius: 5px;
-  box-shadow: 1px 0.5px var(--tasks-background-color);
-  height:80px;
+  box-shadow: 2px 0.5px var(--tasks-background-color);
+  height:83px;
+}
+.searchTask{
+  background-color: var(--task-search);
+  z-index: 2;
+  transform: scale3d(1.03,1.03,1.03);
+  transition: 2s;
 }
