@@ -48,13 +48,13 @@ renderAllTasks();
 const taskInput = document.querySelector('.task-input')
 const doButton = document.querySelector('.do-button')
 const taskValue = document.querySelector('.input')
-let data=null
+let data = null
 document.querySelectorAll('.add-task-button').forEach((each) => {
     each.addEventListener('click', () => {
         taskInput.classList.toggle('show')
-        taskValue.value=''
+        taskValue.value = ''
         taskValue.focus()
-        data=each.classList[1]
+        data = each.classList[1]
     })
 })
 
@@ -76,101 +76,134 @@ doButton.addEventListener('click', () => {
 
 
 })
-document.querySelectorAll('.colums').forEach((contianer)=>{
-    
-    contianer.addEventListener('dragstart',(e)=>{
-         //array swap
-         const task=e.target.closest('.task-box')
-          task.style.opacity=0.5;
-         const fromData={
-            id:task.id,
-            type:task.dataset.taskType
-         }
-         e.dataTransfer.setData('application/json',JSON.stringify(fromData))
+
+document.querySelectorAll('.colums').forEach((contianer) => {
+    contianer.addEventListener('dragstart', (e) => {
+        const task = e.target.closest('.task-box')
+        task.style.opacity = 0.5;
+        const fromData = {
+            id: task.id,
+            type: task.dataset.taskType
+        }
+
+        e.dataTransfer.setData('application/json', JSON.stringify(fromData))
     })
-    contianer.addEventListener('dragover',(e)=>{
-             const task=e.target.closest('.task-box')
-            task.classList.add('dragover')
+    contianer.addEventListener('dragover', (e) => {
+        e.preventDefault()
+        const task = e.target.closest('.task-box')
+        if (task && !task.classList.contains('dragovers')) {
+            task.classList.add('dragovers')
+        }
+        if(!task) return 
+        task.after(document.createElement('div').classList.add('divelement'))
+
+
+
+
+
     })
-    contianer.addEventListener('dragleave',(e)=>{
-        const task=e.target.closest('.task-box')
-        task.classList.remove('dragover')
+    contianer.addEventListener('dragleave', (e) => {
+        const task = e.target.closest('.task-box')
+        e.preventDefault()
+        if (task && task.classList.contains('dragovers')) {
+            task.classList.remove('dragovers')
+
+        }
     })
 
-    
-    contianer.addEventListener('drop',(e)=>{
+
+    contianer.addEventListener('drop', (e) => {
         e.preventDefault()
-         const fromData=JSON.parse(e.dataTransfer.getData('application/json'))
-         const task=e.target.closest('.task-box')
-         if(task==null){
-            const d=contianer.children[1].children[0].dataset.dataType
-            addatend(fromData.type,d,fromData.id)
+        const fromData = JSON.parse(e.dataTransfer.getData('application/json'))
+        const task = e.target.closest('.task-box')
+        if (task == null) {
+            const d = contianer.children[1].children[0].dataset.dataType
+            addatend(fromData.type, d, fromData.id)
             addToLocal()
             renderAllTasks()
             return
-         }
-        const toData={
-            id:task.id,
-            type:task.dataset.taskType
         }
-      
-       if(fromData.type===toData.type){
-          swap(fromData.type,fromData.id,toData.id)
-       }
-       else{
-        addToAnother(fromData.type,toData.type,fromData.id,toData.id)
-       }
-         addToLocal()
-     renderAllTasks()
-      
-     
-       
+        const toData = {
+            id: task.id,
+            type: task.dataset.taskType
+        }
+        const rect = task.getBoundingClientRect()
+        const offset = e.clientY - rect.top
+
+
+        if (fromData.type === toData.type) {
+            swap(fromData.type, fromData.id, toData.id)
+        }
+        else {
+            if (offset > rect.height / 2) {
+                addToAnotherAfter(fromData.type, toData.type, fromData.id, toData.id)
+            }
+            else {
+                addToAnother(fromData.type, toData.type, fromData.id, toData.id)
+            }
+
+        }
+        addToLocal()
+        renderAllTasks()
+
+
+
     })
-    contianer.addEventListener('dragleave',(e)=>{
-        
-       
-           
-    })
-    contianer.addEventListener('dragover',(e)=>{
+    contianer.addEventListener('dragend', (e) => {
         e.preventDefault()
-      
+        //  draggedTask.style.opacity = 1;
+
+        //  draggedTask = null;
     })
 })
-function swap(type,id1,id2){
-    const data=type==='in-progress'?inProgressTasksData:type==="to-do"?toDoTasksData:doneTasksData
-    const fromid=data.findIndex(task=>task.id==id1)
-    const toid=data.findIndex(task=>task.id==id2)
-    if(fromid ==null || toid==null)return
-    const from=data[fromid]
-    data[fromid]=data[toid]
-    data[toid]=from
-  
-   
-   
-}
-function addToAnother(fromtype,totype,id1,id2){
-       const fromdata=fromtype==='in-progress'?inProgressTasksData:fromtype==="to-do"?toDoTasksData:doneTasksData
-         const todata=totype==='in-progress'?inProgressTasksData:totype==="to-do"?toDoTasksData:doneTasksData
-          const fromid=fromdata.findIndex(task=>task.id==id1)
-    const toid=todata.findIndex(task=>task.id==id2)
-     if(fromid ==null || toid==null)return
-     const to=todata[0]
-   const from=fromdata[fromid]
-   from.type=to.type
-   fromdata.splice(fromid,1)
-   todata.splice(toid,0,from)
-    
-   
+function swap(type, id1, id2) {
+    const data = type === 'in-progress' ? inProgressTasksData : type === "to-do" ? toDoTasksData : doneTasksData
+    const fromid = data.findIndex(task => task.id == id1)
+    const toid = data.findIndex(task => task.id == id2)
+    if (fromid == null || toid == null) return
+    const from = data[fromid]
+    data[fromid] = data[toid]
+    data[toid] = from
+
+
 
 }
-function addatend(fromtype,totype,id1){
-      const fromdata=fromtype==='in-progress'?inProgressTasksData:fromtype==="to-do"?toDoTasksData:doneTasksData
-         const todata=totype==='in-progress'?inProgressTasksData:totype==="to-do"?toDoTasksData:doneTasksData
-           const fromid=fromdata.findIndex(task=>task.id==id1)
-             if(fromid ==null )return
-             const from=fromdata[fromid]
-             from.type=totype
-             fromdata.splice(fromid,1)
-   todata.push(from)
-  
+function addToAnother(fromtype, totype, id1, id2) {
+    const fromdata = fromtype === 'in-progress' ? inProgressTasksData : fromtype === "to-do" ? toDoTasksData : doneTasksData
+    const todata = totype === 'in-progress' ? inProgressTasksData : totype === "to-do" ? toDoTasksData : doneTasksData
+    const fromid = fromdata.findIndex(task => task.id == id1)
+    const toid = todata.findIndex(task => task.id == id2)
+    if (fromid == null || toid == null) return
+    const to = todata[0]
+    const from = fromdata[fromid]
+    from.type = to.type
+    fromdata.splice(fromid, 1)
+    todata.splice(toid, 0, from)
+
+
+
+}
+function addToAnotherAfter(fromtype, totype, id1, id2) {
+    const fromdata = fromtype === 'in-progress' ? inProgressTasksData : fromtype === "to-do" ? toDoTasksData : doneTasksData
+    const todata = totype === 'in-progress' ? inProgressTasksData : totype === "to-do" ? toDoTasksData : doneTasksData
+    const fromid = fromdata.findIndex(task => task.id == id1)
+    const toid = todata.findIndex(task => task.id == id2)
+    const toids=toid+1
+    if (fromid == null || toids == null) return
+    const to = todata[0]
+    const from = fromdata[fromid]
+    from.type = to.type
+    fromdata.splice(fromid, 1)
+    todata.splice(toids, 0, from)
+}
+function addatend(fromtype, totype, id1) {
+    const fromdata = fromtype === 'in-progress' ? inProgressTasksData : fromtype === "to-do" ? toDoTasksData : doneTasksData
+    const todata = totype === 'in-progress' ? inProgressTasksData : totype === "to-do" ? toDoTasksData : doneTasksData
+    const fromid = fromdata.findIndex(task => task.id == id1)
+    if (fromid == null) return
+    const from = fromdata[fromid]
+    from.type = totype
+    fromdata.splice(fromid, 1)
+    todata.push(from)
+
 }
