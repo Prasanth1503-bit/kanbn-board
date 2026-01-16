@@ -33,10 +33,10 @@
                 <button id="filter-button">Filter Tasks <span class="symbol">&#9662;</span></button>
 
                 <div class="dropdown" id="filter-tasks">
-                    <button data-value="all">All Tasks</button>
-                    <button data-value="in-progress">In-Progress Tasks</button>
-                    <button data-value="completed">Completed Tasks</button>
-                    <button data-value="pending">Pending Tasks</button>
+                    <button data-value="all" class="allTasksbutton">All Tasks</button>
+                    <button data-value="in-progress" class="inprogressbutton">In-Progress Tasks</button>
+                    <button data-value="completed" class="donebutton">Completed Tasks</button>
+                    <button data-value="pending" class="todobutton">To Do Tasks</button>
                 </div>
 
             </div>
@@ -49,8 +49,10 @@
             <div class="to-do-block  colums">
                 <h2>To Do</h2>
                 <div class="to-do-tasks ">
+                    
                     <div class="to-do tasks-bar " data-data-type="to-do">
 
+                    
                     </div>
                     <button class="add-task-button  do-task-add-button">+ Add Task</button>
                 </div>
@@ -58,8 +60,10 @@
             <div class="in-progress-block colums">
                 <h2>In Progress</h2>
                 <div class="to-progress-tasks">
+                  
                     <div class="in-progress  tasks-bar" data-data-type="in-progress">
 
+                   
                     </div>
 
                     <button class="add-task-button in-progress-add-button">+ Add Task</button>
@@ -69,8 +73,7 @@
                 <h2>Done</h2>
                 <div class="done-tasks ">
                     <div class="done tasks-bar" data-data-type="done">
-                    </div>
-
+                     </div>
                     <button class="add-task-button  done-add-button">+ Add Task</button>
                 </div>
             </div>

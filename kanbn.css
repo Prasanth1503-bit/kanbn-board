@@ -194,6 +194,7 @@ input:checked+.slider:before {
   text-align: center;
   color: var(--tasks-text-colour);
  position: relative;
+ 
 }
 
 .to-do-block,
@@ -201,27 +202,37 @@ input:checked+.slider:before {
 .done-block {
   border: black 1px solid;
   margin-right: 20px;
-  width: 90%;
-  height: auto
+  width: 100%;
+  height: auto;
+     
+  
+  
 }
 
 .to-do-block h2 {
   background-color: var(--taskheader-background-color);
   margin: 0;
   padding: 10px 0;
+  
 }
 
 .in-progress-block h2 {
   background-color: var(--taskheader-background-color);
   margin: 0;
   padding: 10px 0;
+  
 }
 
 .done-block h2 {
   background-color: var(--taskheader-background-color);
   margin: 0;
   padding: 10px 0;
+  
 }
+/* .scroll{
+  overflow-y: auto;
+  flex:1;
+} */
 
 .task-box {
   border: none;
@@ -233,6 +244,7 @@ input:checked+.slider:before {
   font-weight: 600;
   border-radius: 5px;
   box-shadow: 1px 0.5px var(--tasks-background-color);
+
 }
 .task-box.dragged{
   opacity: 0.5;
@@ -242,7 +254,13 @@ input:checked+.slider:before {
   transition: transform 0.2s ease;
 
 }
-
+/* .to-do-tasks,
+.to-progress-tasks,
+.done-tasks {
+  display: flex;          
+  flex-direction: column;
+  flex: 1;               
+} */
 
 .add-task-button {
   margin: 10px;
@@ -254,6 +272,7 @@ input:checked+.slider:before {
   font-weight: bold;
   cursor: pointer;
   border-radius: 5px;
+  flex-shrink: 0;
 }
 .task-input{
    position: absolute;   
@@ -294,10 +313,10 @@ input:checked+.slider:before {
   height:35px;
 }
 .divelement{
-  border: none;
+  border: 0.5px solid black;
   margin: 10px;
   padding: 10px;
-  background-color: var(--tasks-background-color);
+
   padding-left: 15px;
   text-align: left;
   font-weight: 600;
@@ -305,5 +324,5 @@ input:checked+.slider:before {
   transform: scale3d(0.9,0.9,0.9);
   border-radius: 5px;
   box-shadow: 1px 0.5px var(--tasks-background-color);
-  height: 80px;
+  height:80px;
 }
